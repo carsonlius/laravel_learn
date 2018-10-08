@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Api\Controller;
 
-class AuthController extends Controller
+use Illuminate\Support\Facades\Auth;
+
+class AuthController extends BaseController
 {
     /**
      * Create a new AuthController instance.
@@ -22,7 +24,6 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-        exit(json_encode($credentials, JSON_UNESCAPED_UNICODE));
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -78,4 +79,5 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+
 }

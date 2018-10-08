@@ -89,7 +89,7 @@ class LessonController extends ApiController
      */
     public function edit(Lesson $lesson)
     {
-        //
+        return auth()->payload();
     }
 
     /**
