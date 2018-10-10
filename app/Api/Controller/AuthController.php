@@ -2,8 +2,6 @@
 
 namespace App\Api\Controller;
 
-use Illuminate\Support\Facades\Auth;
-
 class AuthController extends BaseController
 {
     /**
