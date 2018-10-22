@@ -1,61 +1,96 @@
 <?php
 
-$authorization = 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybi5jYXJzb25saXVzLnZpcFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTUzODg4MDk2NSwiZXhwIjoxNTM4ODg0NTY1LCJuYmYiOjE1Mzg4ODA5NjUsImp0aSI6Im10Rm1YQUMyQldjR2FhTVIiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.xZGnrbo8fDGQ8OstGhaDlsEaPP-00sHumwUpsrA-zdw';
-$url = 'http://learn.carsonlius.vip/api/lesson/1';
-var_dump(curlAuth::curlAuth($url, $authorization));
-
-class curlAuth
+class Jwt
 {
-    private $authorization = [];
-    private $url;
-
-    /**
-     * curlAuth constructor.
-     * @param string $url
-     * @param string $authorization
-     */
-    private function __construct(string $url, string $authorization)
+    private $des;
+    private function __construct(string $des)
     {
-        $this->url = $url;
-        array_push($this->authorization, $authorization);
+        $this->des = $des;
     }
 
     /**
-     * @param string $url
-     * @param string $authorization
-     * @return array
+     * hash解密
+     * @param string $des
+     * @param string $str_encode
      */
-    public static function curlAuth(string $url, string $authorization): array
+    public static function baseDecode(string $des, string $str_encode)
     {
-        return (new static($url, $authorization))->curlRequest();
+        (new static($des))->baseDecodeDo($str_encode);
     }
 
     /**
-     * @return array
+     * 生成签名
+     * @param string $header
+     * @param string $payload
      */
-    private function curlRequest(): array
+    public static function genSign(string $des, string $header, string $payload)
     {
-        //初始化
-        $curl = curl_init();
 
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->authorization);
-        //设置抓取的url
-        curl_setopt($curl, CURLOPT_URL, $this->url);
-        //设置头文件的信息作为数据流输出
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        //设置获取的信息以文件流的形式返回，而不是直接输出。
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        //执行命令
-        $data = curl_exec($curl);
-        //关闭URL请求
-        curl_close($curl);
+        return (new static($des))->genSignDo($header, $payload);
+    }
 
-        if (is_string($data)) {
-            return json_decode($data, true);
+    private function genSignDo(string $header, string $payload)
+    {
+        global $sign;
+        global $key;
+        $sign_hash = $this->signature($header . '.' . $payload, $key, 'HS256');
+        echo $this->des . $sign_hash . PHP_EOL;
+
+        echo  $sign === $sign_hash ? ' 完全一致，验证通过 '  : '不一致 ';
+        echo ''. PHP_EOL;
+    }
+
+    protected function baseDecodeDo(string $str_encode)
+    {
+        echo $this->des . base64_decode($str_encode) . PHP_EOL;
+    }
+
+    /**
+     * base64UrlEncode   https://jwt.io/  中base64UrlEncode编码实现
+     * @param string $input 需要编码的字符串
+     * @return string
+     */
+    private function base64UrlEncode(string $input)
+    {
+        return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
+    }
+
+    /**
+     * base64UrlEncode  https://jwt.io/  中base64UrlEncode解码实现
+     * @param string $input 需要解码的字符串
+     * @return bool|string
+     */
+    private static function base64UrlDecode(string $input)
+    {
+        $remainder = strlen($input) % 4;
+        if ($remainder) {
+            $addlen = 4 - $remainder;
+            $input .= str_repeat('=', $addlen);
         }
+        return base64_decode(strtr($input, '-_', '+/'));
+    }
 
-        //显示获得的数据
-        return $data;
+    /**
+     * HMACSHA256签名   https://jwt.io/  中HMACSHA256签名实现
+     * @param string $input 为base64UrlEncode(header).".".base64UrlEncode(payload)
+     * @param string $key
+     * @param string $alg   算法方式
+     * @return mixed
+     */
+    private  function signature(string $input, string $key, string $alg = 'HS256')
+    {
+        $alg_config=array(
+            'HS256'=>'sha256'
+        );
+        return $this->base64UrlEncode(hash_hmac($alg_config[$alg], $input, $key,true));
     }
 }
 
+$header = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9';
+Jwt::baseDecode('header 解码之后数据: ', $header);
+$payload = 'eyJpc3MiOiJodHRwOlwvXC9sZWFybi5jYXJzb25saXVzLnZpcFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTUzOTI1NzI4MywiZXhwIjoxNTM5MjYwODgzLCJuYmYiOjE1MzkyNTcyODMsImp0aSI6Ik8xcmtySE94OXluUDRRTUwiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ';
+Jwt::baseDecode('payload解码之后的数据: ', $payload);
+$sign = 'EI_tKkVoq0uYDmZmw2-4riA7sWjw02jvivxiWUwidP8';
+$key = 'wf0BAefvZB5S2efYmgEnMItMa9tzpnrv';
+
+Jwt::genSign('签名字符串 : ', $header, $payload);

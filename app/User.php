@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable,HasApiTokens;
+//    protected $table = 'customers';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', 'phone'
     ];
 
     /**
@@ -50,4 +52,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+//    /**
+//     * 设置用来认证的密码字段
+//     * @return string
+//     */
+//    public function getAuthPassword() : string
+//    {
+//        return $this->user_password;
+//    }
 }

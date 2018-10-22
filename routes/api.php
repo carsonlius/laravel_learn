@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 $api->version(['v1'],function ($api){
-    $api->group(['middleware' => 'jwt.auth', 'namespace' => 'App\Api\Controller'], function ($api){
+    $api->group(['middleware' => 'jwt.refresh', 'namespace' => 'App\Api\Controller'], function ($api){
         $api->get('lessons', 'LessonController@index');
         $api->get('lesson/{lesson}', 'LessonController@show');
     });
@@ -29,8 +29,15 @@ $api->version(['v1'],function ($api){
         $api->post('logout', 'AuthController@logout');
         $api->post('refresh', 'AuthController@refresh');
         $api->post('me', 'AuthController@me');
+        $api->post('payload', 'AuthController@payload');
     });
 });
+
+
+Route::get('lesson1', 'UserController@lesson1')->middleware('auth:api');
+
+// client credentials grant token
+Route::get('lesson5', 'UserController@lesson5')->middleware('client');
 
 
 //$api->version('v2', function ($api){

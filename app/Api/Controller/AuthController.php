@@ -2,8 +2,11 @@
 
 namespace App\Api\Controller;
 
+use Dingo\Api\Routing\Helpers;
+
 class AuthController extends BaseController
 {
+    use Helpers;
     /**
      * Create a new AuthController instance.
      *
@@ -21,7 +24,7 @@ class AuthController extends BaseController
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['phone', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -50,6 +53,15 @@ class AuthController extends BaseController
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     *
+     */
+    public function payload()
+    {
+        $payload = auth()->payload()->toArray();
+        return response()->json(compact('payload'));
     }
 
     /**

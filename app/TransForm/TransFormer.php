@@ -3,7 +3,7 @@
 namespace App\TransForm;
 
 
-abstract class TransFormer
+abstract class TransForm
 {
     /**
      * @param array $items

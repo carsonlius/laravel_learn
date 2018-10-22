@@ -198,8 +198,8 @@ class UserController extends Controller
         $profit = collect($year_this)->zip($year_last)->map(function ($item) {
             return $item->first() - $item->last();
         });
-
-        dd($profit);
+        $profit = $profit->toArray();
+        return response()->json(compact('profit'));
     }
 
     public function lesson4()
@@ -1807,6 +1807,8 @@ class UserController extends Controller
                 ['order_id' => 1, 'product_id' => 1, 'param' => '7寸', 'price' => 333.00, 'product' => ['id' => 1, 'name' => '蛋糕名称', 'images' => []]],
             ],
         ]];
-        return $this->response->item(collect($orders), function (){});
+
+        return response()->json($orders);
+//        return $this->response->item(collect($orders), function (){});
     }
 }

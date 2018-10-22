@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Passport\Http\Middleware\CheckClientCredentials;
 
 class Kernel extends HttpKernel
 {
@@ -60,5 +61,6 @@ class Kernel extends HttpKernel
         'auth.basic.once' => \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
         'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
+        'client' => CheckClientCredentials::class,
     ];
 }
