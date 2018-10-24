@@ -40,8 +40,15 @@ class AuthServiceProvider extends ServiceProvider
 
         // 设置 scope
         Passport::tokensCan([
-            'place-orders' => 'Place orders',
-            'check-status' => 'Check order status',
+            'place-orders' => '下订单',
+            'check-status' => '检查运单的状态',
+            'lesson1' => '课程1',
+            'lesson2' => '课程2',
+            'lesson3' => '课程3',
+            'lesson4' => '课程4',
+            'lesson5' => '课程5',
+            'lesson6' => '课程6',
+            'lesson7' => '课程7',
         ]);
     }
 }

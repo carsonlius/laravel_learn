@@ -34,10 +34,25 @@ $api->version(['v1'],function ($api){
 });
 
 
-Route::get('lesson1', 'UserController@lesson1')->middleware('auth:api');
+
 
 // client credentials grant token
 Route::get('lesson5', 'UserController@lesson5')->middleware('client');
+
+
+Route::group(['middleware' =>['scopes:lesson1,lesson5']], function (){
+    Route::get('lesson1', 'UserController@lesson1')->middleware('auth:api');
+});
+
+Route::group(['middleware' => ['scope:lesson1,lesson3', 'auth:api']], function(){
+    Route::get('lesson2', 'UserController@lesson2');
+    Route::get('lesson3', 'UserController@lesson3');
+    Route::get('lesson4', 'UserController@lesson4');
+    Route::get('lesson5', 'UserController@lesson5');
+Route::get('lesson6', 'UserController@lesson6')->middleware('auth');
+Route::get('lesson7', 'UserController@lesson7')->middleware('auth');
+});
+
 
 
 //$api->version('v2', function ($api){

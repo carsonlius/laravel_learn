@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\SendReminderEmail;
 use App\User;
 use Dingo\Api\Routing\Helpers;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -149,17 +150,8 @@ class UserController extends Controller
             ],
         ];
 
-        dump(collect($employees)->pluck('email', 'name'));
-        dump(collect($employees)->reduce(function($carry, $item){
-            $carry[$item['name']] = $item['email'];
-            return $carry;
-        }));
-
-        dump(collect($employees)->reduce(function($carry, $item){
-            $carry[$item['name']] = $item['email'];
-            return $carry;
-        }), []);
-        dump(collect($employees)->pluck('name')->combine(collect($employees)->pluck('email')->toArray()));
+        $list_stat = collect($employees)->pluck('name')->combine(collect($employees)->pluck('email')->toArray());
+        return response()->json(compact('list_stat'));
 
     }
 
@@ -1765,7 +1757,7 @@ class UserController extends Controller
     /**
      *
      */
-    public function lesson2()
+    public function lesson2(Request $request)
     {
         $gates = [
             'BaiYun_A_A17',
@@ -1787,9 +1779,17 @@ class UserController extends Controller
 
         $list_gate = collect($gates)->map(function ($gate) {
             return collect(explode('_', $gate))->last();
-        });
+        })->toArray();
 
-        dump($list_gate);
+
+        $api_user = \Auth::guard('api')->user();
+        $request_user = $request->user();
+        if (!$request->user()->tokenCan('lesson1')) {
+            $response = '当前token没有lesson1的权限';
+            return response()->json(compact('request_user', 'list_gate', 'response'));
+        }
+
+        return response()->json(compact('request_user', 'api_user', 'list_gate'));
     }
 
 

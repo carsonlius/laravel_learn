@@ -43,7 +43,7 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Authorization Request
+                        认证
                     </div>
                     <div class="panel-body">
                         <!-- Introduction -->
@@ -52,7 +52,7 @@
                         <!-- Scope List -->
                         @if (count($scopes) > 0)
                             <div class="scopes">
-                                    <p><strong>This application will be able to:</strong></p>
+                                    <p><strong>应用正在试图获取下面的权限:</strong></p>
 
                                     <ul>
                                         @foreach ($scopes as $scope)

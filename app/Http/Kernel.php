@@ -62,5 +62,7 @@ class Kernel extends HttpKernel
         'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
         'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
         'client' => CheckClientCredentials::class,
+        'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,  // 认证token是否拥有某个scope的权限
+        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class, // 认证token是否拥有某个scope的权限
     ];
 }
