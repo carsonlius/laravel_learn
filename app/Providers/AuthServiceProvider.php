@@ -50,5 +50,6 @@ class AuthServiceProvider extends ServiceProvider
             'lesson6' => '课程6',
             'lesson7' => '课程7',
         ]);
+
     }
 }

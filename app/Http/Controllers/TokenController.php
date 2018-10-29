@@ -14,6 +14,7 @@ class TokenController extends Controller
         return view('token.authorized');
     }
 
+    // token列表
     public function accessTokens()
     {
         return view('token.tokens');

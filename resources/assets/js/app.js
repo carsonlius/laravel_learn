@@ -31,6 +31,8 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
+// 测试 Passport Web Middleware
+Vue.component('passport-web-middleware-show', require('./components/web/PassportWebMiddleware'));
 
 const app = new Vue({
     el: '#app',

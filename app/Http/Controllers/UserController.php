@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     use Helpers;
+
+
+    /**
+     * 测试passport web middleware
+     */
+    public function passportWeb()
+    {
+        return view('user.passport_web');
+    }
+
     public function store()
     {
         $where = [
@@ -104,21 +114,21 @@ class UserController extends Controller
 
         $orders = collect($orders);
 
-        dump($orders->groupBy('date'));
-
-        // reduce
-        $result = $orders->groupBy('date')->reduce(function($carry, $item){
-                $date = $item->pluck('date')->first();
-                $carry[$date] = $item->pluck('item_unit_price')->sum();
-                return $carry;
-            }, []);
-
-        // map
-        $result = $orders->groupBy('date')->map(function($item, $date){
-           return $item->pluck('item_unit_price')->sum();
-        });
-
-        dump($result);
+//        dump($orders->groupBy('date'));
+//
+//        // reduce
+//        $result = $orders->groupBy('date')->reduce(function($carry, $item){
+//                $date = $item->pluck('date')->first();
+//                $carry[$date] = $item->pluck('item_unit_price')->sum();
+//                return $carry;
+//            }, []);
+//
+//        // map
+//        $result = $orders->groupBy('date')->map(function($item, $date){
+//           return $item->pluck('item_unit_price')->sum();
+//        });
+//
+//        dump($result);
         $result = $orders->groupBy('date')->map(function($item, $date){
             return $item->groupBy('supplier')->map(function ($item_sub){
                 return $item_sub->sum(function ($one_last){
@@ -126,7 +136,7 @@ class UserController extends Controller
                 });
             });
         });
-        dump($result->toArray());
+        return response()->json($result->toArray());
 
     }
 

@@ -49,10 +49,19 @@ Route::group(['middleware' => ['scope:lesson1,lesson3', 'auth:api']], function()
     Route::get('lesson3', 'UserController@lesson3');
     Route::get('lesson4', 'UserController@lesson4');
     Route::get('lesson5', 'UserController@lesson5');
-Route::get('lesson6', 'UserController@lesson6')->middleware('auth');
-Route::get('lesson7', 'UserController@lesson7')->middleware('auth');
+    Route::get('lesson6', 'UserController@lesson6');
 });
 
+Route::get('lesson7', 'UserController@lesson7')->middleware('auth:api');
+
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::middleware('auth:api')->post('/user', function (Request $request) {
+    return $request->user();
+});
 
 
 //$api->version('v2', function ($api){
