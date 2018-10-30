@@ -45852,7 +45852,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -45869,12 +45869,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "ConsumeJS",
     data: function data() {
         return {
-            user: {}
+            user: {},
+            lesson: {}
         };
     },
     mounted: function mounted() {
@@ -45883,6 +45889,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('/api/user').then(function (response) {
             _this.user = response.data;
             console.log(response);
+        });
+        axios.get('/api/lesson1').then(function (response) {
+            _this.response = response.data;
+            console.log(response);
+        }).catch(function (response) {
+            console.log('请求lesson1遇到了问题', response);
         });
     }
 });
@@ -45895,16 +45907,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "panel panel-default" }, [
+    _c("div", { staticClass: "panel-heading" }, [
+      _vm._v(
+        "\n        本页面用来测试passport web middleware; 这个Package允许前端无缝的方式api\n    "
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel-body" }, [
+      _vm._v("\n      " + _vm._s(this.user) + "\n    ")
+    ])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h5", [_vm._v("Hello World3")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
