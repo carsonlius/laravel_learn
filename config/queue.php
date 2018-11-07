@@ -63,6 +63,12 @@ return [
             'queue' => 'default',
             'retry_after' => 90,
         ],
+        'redis_wechat' => [
+            'driver' => 'redis',
+            'connection' => env('REDIS_HOST_WECHAT'),
+            'queue' => 'default',
+            'retry_after' => 90,
+        ]
 
     ],
 

@@ -14,7 +14,8 @@ class SendReminderEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $user
+    public $user;
+
     /**
      * Create a new job instance.
      *

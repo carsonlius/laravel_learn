@@ -26,6 +26,11 @@ Route::get('remind', 'UserController@store');
 
 Route::get('/passport_web/show', 'UserController@passportWeb')->middleware('auth');
 
+Route::any('/wechat', 'WeChatController@serve');
 
+Route::get('/provider/billing', function(\App\Billing\Stripe $billing){
+//    $billing = app('billing');
+    dd($billing->charge());
+});
 
 
