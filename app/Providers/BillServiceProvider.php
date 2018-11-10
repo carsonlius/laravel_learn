@@ -8,13 +8,19 @@ use Illuminate\Support\ServiceProvider;
 class BillServiceProvider extends ServiceProvider
 {
     /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+//    protected $defer = true;
+
+    /**
      * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
-        //
     }
 
     /**
@@ -28,4 +34,14 @@ class BillServiceProvider extends ServiceProvider
            return new Stripe();
         });
     }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+//    public function provides()
+//    {
+//        return [Stripe::class];
+//    }
 }

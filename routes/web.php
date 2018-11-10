@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', function () {
+
+    return \View::make('welcome');
     return view('welcome');
 });
 
@@ -29,8 +31,22 @@ Route::get('/passport_web/show', 'UserController@passportWeb')->middleware('auth
 Route::any('/wechat', 'WeChatController@serve');
 
 Route::get('/provider/billing', function(\App\Billing\Stripe $billing){
-//    $billing = app('billing');
+    $billing = app('billing');
     dd($billing->charge());
 });
 
+Route::get('/facade', function(){
+    \Stripe::charge();
+});
 
+
+Route::get('/cache', function () {
+
+    $result  = cache('key2');
+    dump($result);
+});
+
+
+// 664170
+//
+// 远程连接密码： 664170
