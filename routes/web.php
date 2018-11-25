@@ -1,8 +1,6 @@
 <?php
 
 Route::get('/', function () {
-
-    return \View::make('welcome');
     return view('welcome');
 });
 
@@ -28,7 +26,7 @@ Route::get('remind', 'UserController@store');
 
 Route::get('/passport_web/show', 'UserController@passportWeb')->middleware('auth');
 
-Route::any('/wechat', 'WeChatController@serve');
+//Route::any('/wechat', 'WeChatController@serve');
 
 Route::get('/provider/billing', function(\App\Billing\Stripe $billing){
     $billing = app('billing');
@@ -42,11 +40,33 @@ Route::get('/facade', function(){
 
 Route::get('/cache', function () {
 
+    dump(app()->version());
     $result  = cache('key2');
     dump($result);
 });
 
 
-// 664170
-//
-// 远程连接密码： 664170
+// contact 测试
+Route::get('/test', function(){
+    $collection = collect([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+
+    $collapsed = $collection->collapse();
+
+    dump($collapsed->all());
+});
+
+
+
+Route::get('/inject', 'InjectController@sayHello');
+
+
+Route::get('password', function(){
+    $password_source = 123456;
+//    dump(\Hash::check($password_source, '$2y$10$prQTe8VwzK.nroo//s8UXu4k.NcqYK3Dw3h9t1miLbswVdLtIHCBC'));
+//    dump(resolve('hash')->make($password_source));
+//    dump(app('Illuminate\Hashing\BcryptHasher')->make($password_source));
+//    dump(app('Illuminate\Contracts\Hashing\Hasher')->make($password_source));
+//    dump(app()->hash->make($password_source));
+    dump(app('hash')->make($password_source));
+//    dd(\Hash::make($password_source));
+});

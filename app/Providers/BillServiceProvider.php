@@ -12,7 +12,7 @@ class BillServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-//    protected $defer = true;
+    protected $defer = true;
 
     /**
      * Bootstrap the application services.
@@ -40,8 +40,8 @@ class BillServiceProvider extends ServiceProvider
      *
      * @return array
      */
-//    public function provides()
-//    {
-//        return [Stripe::class];
-//    }
+    public function provides()
+    {
+        return ['billing'];
+    }
 }

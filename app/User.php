@@ -53,6 +53,12 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+
+//    public function getAuthIdentifierName()
+//    {
+//        return $this->
+//    }
+
 //    /**
 //     * 设置用来认证的密码字段
 //     * @return string

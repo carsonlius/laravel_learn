@@ -7,6 +7,11 @@ use App\TransForm\LessonTransForm;
 
 class LessonRepository
 {
+
+    public function sayHello()
+    {
+        dump("laravel's injection is working!");
+    }
     /**
      * @throws \Exception
      */
