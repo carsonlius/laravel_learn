@@ -37,22 +37,10 @@ Route::get('/facade', function(){
     \Stripe::charge();
 });
 
-
-Route::get('/cache', function () {
-
-    dump(app()->version());
-    $result  = cache('key2');
-    dump($result);
-});
-
-
 // contact 测试
 Route::get('/test', function(){
-    $collection = collect([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-
-    $collapsed = $collection->collapse();
-
-    dump($collapsed->all());
+    dump($password_hasher =\Md5Hasher::make(123456));
+    dump(\MD5Hasher::check(123456, $password_hasher));
 });
 
 
@@ -61,7 +49,7 @@ Route::get('/inject', 'InjectController@sayHello');
 
 
 Route::get('password', function(){
-    $password_source = 123456;
+    $password_source = 'nicework';
 //    dump(\Hash::check($password_source, '$2y$10$prQTe8VwzK.nroo//s8UXu4k.NcqYK3Dw3h9t1miLbswVdLtIHCBC'));
 //    dump(resolve('hash')->make($password_source));
 //    dump(app('Illuminate\Hashing\BcryptHasher')->make($password_source));
