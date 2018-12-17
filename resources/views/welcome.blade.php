@@ -76,7 +76,6 @@
                     @endauth
                 </div>
             @endif
-
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
@@ -88,6 +87,10 @@
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
                 </div>
             </div>
         </div>

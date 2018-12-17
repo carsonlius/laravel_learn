@@ -53,6 +53,16 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withTimestamps();
+    }
+
+    public function routeNotificationForMail()
+    {
+        return 'sen.liu@yulore.com';
+    }
+
 
 //    public function getAuthIdentifierName()
 //    {

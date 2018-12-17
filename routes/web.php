@@ -6,7 +6,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => 'tokens'], function(){
+Route::group(['prefix' => 'tokens'], function () {
     Route::get('clients', 'TokenController@clients');
     Route::get('authorized', 'TokenController@authorized');
 
@@ -28,33 +28,29 @@ Route::get('/passport_web/show', 'UserController@passportWeb')->middleware('auth
 
 //Route::any('/wechat', 'WeChatController@serve');
 
-Route::get('/provider/billing', function(\App\Billing\Stripe $billing){
-    $billing = app('billing');
-    dd($billing->charge());
+Route::get('/test', function () {
+    \App\Events\PostUpdatedEvent::dispatch(\App\Post::find(2));
+//    \App\Events\OrderUpdated::dispatch(\App\Post::find(4));
+    dump('已经完成了对order updated的触发');
 });
 
-Route::get('/facade', function(){
-    \Stripe::charge();
-});
-
-// contact 测试
-Route::get('/test', function(){
-    dump($password_hasher =\Md5Hasher::make(123456));
-    dump(\MD5Hasher::check(123456, $password_hasher));
+Route::get('/private', function(){
+    \App\Events\OrderUpdatedEvent::dispatch(\App\Post::find(1));
+    dump('已经完成了对private channel的触发');
 });
 
 
+Route::get('/privateT', function (){
+    \App\Events\ClearUserUpdatedEvent::dispatch(\App\User::find(1));
+    dump('已经完成了对私有渠道的触发');
+});
 
-Route::get('/inject', 'InjectController@sayHello');
 
+Route::get('notification', function(){
+    Notification::send(\App\User::find(1), new \App\Notifications\InvoicePaid(\App\Post::find(1)));
 
-Route::get('password', function(){
-    $password_source = 'nicework';
-//    dump(\Hash::check($password_source, '$2y$10$prQTe8VwzK.nroo//s8UXu4k.NcqYK3Dw3h9t1miLbswVdLtIHCBC'));
-//    dump(resolve('hash')->make($password_source));
-//    dump(app('Illuminate\Hashing\BcryptHasher')->make($password_source));
-//    dump(app('Illuminate\Contracts\Hashing\Hasher')->make($password_source));
-//    dump(app()->hash->make($password_source));
-    dump(app('hash')->make($password_source));
-//    dd(\Hash::make($password_source));
+    $notifications = \App\User::find(1)->unreadNotifications;
+    foreach ($notifications as $notification) {
+        dump('ID :' . $notification->id . 'Type :' . $notification->type . ' title :' . $notification->data['post_title']);
+    }
 });

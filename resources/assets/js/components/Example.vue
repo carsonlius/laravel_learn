@@ -18,5 +18,13 @@
     export default {
         data : function(){
         },
+        mounted : function(){
+            console.log('Example Component!');
+            console.log(window.Laravel.user_id);
+            window.Echo.private('clear-posts.' + window.Laravel.user).listen('ClearUserUpdatedEvent', function(e){
+                alert('现在进入了private渠道');
+                console.log('private', e);
+            });
+        }
     }
 </script>
