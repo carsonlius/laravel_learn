@@ -68,6 +68,7 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    {{ \Auth::check() ? 'Hello' : 'World' }}
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -78,7 +79,7 @@
             @endif
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel(47.104.196.199)
+                    Laravel(47.104.196.199  你猜猜哪个IP是对的?)
                 </div>
 
                 <div class="links">
