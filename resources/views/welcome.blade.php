@@ -79,7 +79,7 @@
             @endif
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel(47.104.196.199  你猜猜哪个IP是对的?)
+                    Laravel(47.104.196.199)
                 </div>
 
                 <div class="links">

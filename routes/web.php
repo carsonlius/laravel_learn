@@ -54,5 +54,5 @@ Route::get('notification', function(){
 });
 
 Route::get('test', function(){
-    dd(\App\User::first()->toArray());
+    dd($_SERVER);
 });
