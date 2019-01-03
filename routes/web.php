@@ -4,6 +4,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('home', function () {
+    return view('welcome');
+});
+
 Auth::routes();
 
 Route::group(['prefix' => 'tokens'], function () {
@@ -28,15 +32,9 @@ Route::get('/passport_web/show', 'UserController@passportWeb')->middleware('auth
 
 //Route::any('/wechat', 'WeChatController@serve');
 
-Route::get('/test', function () {
-    \App\Events\PostUpdatedEvent::dispatch(\App\Post::find(2));
-//    \App\Events\OrderUpdated::dispatch(\App\Post::find(4));
-    dump('已经完成了对order updated的触发');
-});
 
 Route::get('/private', function(){
-    \App\Events\OrderUpdatedEvent::dispatch(\App\Post::find(1));
-    dump('已经完成了对private channel的触发');
+    dd(\App\User::all());
 });
 
 
@@ -53,4 +51,8 @@ Route::get('notification', function(){
     foreach ($notifications as $notification) {
         dump('ID :' . $notification->id . 'Type :' . $notification->type . ' title :' . $notification->data['post_title']);
     }
+});
+
+Route::get('test', function(){
+    dd(\App\User::first()->toArray());
 });

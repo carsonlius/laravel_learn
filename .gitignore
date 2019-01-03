@@ -13,3 +13,5 @@ yarn-error.log
 nginx_error.log
 nginx_access.log
 note/
+worker.log
+/storage/
