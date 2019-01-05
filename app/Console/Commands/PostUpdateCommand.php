@@ -12,7 +12,8 @@ class PostUpdateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'update_post:title';
+    protected $signature = 'update-post:title 
+                            {user}: The ID of the user';
 
     /**
      * The console command description.
@@ -38,11 +39,25 @@ class PostUpdateCommand extends Command
      */
     public function handle()
     {
+//        $name = $this->secret('What is your name?');
+        $userId = $this->argument('user');
+
+//        $name2 = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
         $time = time();
-        Post::all()->each(function($item) use ($time){
-            $item->title = $time;
-            $item->save();
-        });
-         dd('It"s done!');
+        $list_title = ['Hello', 'World'];
+        $title_suffix = $list_title[$time%2];
+
+        $list_header = ['id', 'title'];
+        $list_post = Post::all($list_header);
+
+        $bar = $this->output->createProgressBar(count($list_post));
+        foreach ($list_post as $post) {
+            $post->title = $time . '_' . $title_suffix;
+            $post->save();
+            $bar->advance(1);
+            usleep(1000);
+        }
+        $bar->finish();
+
     }
 }
