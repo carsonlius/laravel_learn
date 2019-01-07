@@ -54,7 +54,6 @@ Route::get('notification', function(){
 });
 
 Route::get('test', function(){
-    dump('设置session');
     session(['today'=>['world']]);
 //    session()->push('today.list_items', ['today1', 'today2']);
     dump(request()->session()->all(), request()->session()->has('today'));
