@@ -12,7 +12,7 @@ git pull origin master
 
 @task('push_web1',  ['on' => [ 'web1'], 'parallel' => true])
 git add .
-git commit -m 'modify: envoy update test'
+git commit -m 'modify: {{ $commit }}'
 git push
 echo 'well done!'
 @endtask
