@@ -33,8 +33,8 @@ Route::get('/passport_web/show', 'UserController@passportWeb')->middleware('auth
 //Route::any('/wechat', 'WeChatController@serve');
 
 
-Route::get('/private', function(){
-    dd(\App\User::all());
+Route::get('/private', function(\Illuminate\Http\Request $request){
+    dd($request->session()->get('today'));
 });
 
 
@@ -54,5 +54,10 @@ Route::get('notification', function(){
 });
 
 Route::get('test', function(){
-    dd($_SERVER);
+    dump('设置session');
+    session(['today'=>['world']]);
+//    session()->push('today.list_items', ['today1', 'today2']);
+    dump(request()->session()->all(), request()->session()->has('today'));
+    $session_id_new = session()->regenerate();
+    dd(compact('session_id_new'), session('today'));
 });
