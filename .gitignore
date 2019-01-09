@@ -15,3 +15,4 @@ nginx_access.log
 note/
 worker.log
 /storage/
+Envoy.blade.php

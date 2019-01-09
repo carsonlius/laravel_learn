@@ -1,4 +1,7 @@
-@servers(['web1' => '127.0.0.1', 'web2' => ['carsonlius@172.31.154.122']])
+@servers(['web3' => ['carsonlius@172.31.154.121'], 'web2' => ['carsonlius@172.31.154.122'], 'web1' => '127.0.0.1'])
+@setup
+    $environment = isset($env) ? $env : "testing";
+@endsetup
 
 @story('deploy')
     @if($commit)
@@ -10,10 +13,10 @@
 @endstory
 
 @task('intro')
-    echo 'Please input commit!';
+    echo 'Please input commit!'
 @endtask
 
-@task('pull_web2', ['on' => [ 'web2'], 'parallel' => true])
+@task('pull_web2', ['on' => [ 'web2', 'web3'], 'parallel' => true])
     cd laravel_learn
     git pull origin master
 @endtask
@@ -24,8 +27,3 @@
     git push
     echo 'well done!'
 @endtask
-
-@setup
-    $now = new DateTime();
-    var_dump($now);
-@endsetup
