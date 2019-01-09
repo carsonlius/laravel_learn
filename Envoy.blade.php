@@ -16,7 +16,7 @@
     echo 'Please input commit!'
 @endtask
 
-@task('pull_web2', ['on' => [ 'web2', 'web3'], 'parallel' => true])
+@task('pull_web2', ['on' => [ 'web2'], 'parallel' => true])
     cd laravel_learn
     git pull origin master
 @endtask
