@@ -54,9 +54,5 @@ Route::get('notification', function(){
 });
 
 Route::get('test', function(){
-    session(['today'=>['world']]);
-//    session()->push('today.list_items', ['today1', 'today2']);
-    dump(request()->session()->all(), request()->session()->has('today'));
-    $session_id_new = session()->regenerate();
-    dd(compact('session_id_new'), session('today'));
+    dd(\App\User::first()->toArray());
 });

@@ -79,7 +79,7 @@
             @endif
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel(47.104.196.199)
+                    Laravel(47.104.196.199) Cheers
                 </div>
 
                 <div class="links">
