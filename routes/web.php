@@ -54,5 +54,6 @@ Route::get('notification', function(){
 });
 
 Route::get('mail', function(){
-   dispatch(new \App\Jobs\SendTestEmail('sen.liu@yulore.com'));
+   \App\Jobs\SendTestEmail::dispatch('sen.liu@yulore.com')
+       ->delay(now()->addMinute(1));
 })->middleware('auth');
