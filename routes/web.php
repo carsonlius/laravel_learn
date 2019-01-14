@@ -53,6 +53,6 @@ Route::get('notification', function(){
     }
 });
 
-Route::get('test', function(){
-   dd($_SERVER);
-});
+Route::get('mail', function(){
+   dispatch(new \App\Jobs\SendTestEmail('sen.liu@yulore.com'));
+})->middleware('auth');

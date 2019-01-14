@@ -169,6 +169,7 @@ return [
          */
         Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\BillServiceProvider::class,
+        \Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class,
 
         /*
          * Application Service Providers...
