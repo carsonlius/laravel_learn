@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Sichikawa\LaravelSendgridDriver\SendGrid;
 
-class DepolyEmail extends Mailable
+class DeployEmail extends Mailable
 {
     use Queueable, SerializesModels, SendGrid;
 
@@ -30,18 +30,6 @@ class DepolyEmail extends Mailable
     public function build()
     {
         return $this
-            ->markdown('emails.deploy')
-            ->subject('欢迎第一次访问站点')
-            ->sendgrid([
-                'personalizations' => [
-                    [
-                        'substitutions' => [
-                            ':myname' => 'depoly-laravel',
-                        ],
-                    ],
-                ],
-            ]);
-
-//        return $this->markdown('emails.deploy');
+            ->markdown('emails.deploy');
     }
 }

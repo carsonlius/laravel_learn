@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\DepolyEmail;
+use App\Mail\DeployEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -34,6 +34,6 @@ class SendTestEmail implements ShouldQueue
     public function handle()
     {
         Mail::to($this->email)
-        ->send(DepolyEmail::class);
+        ->send(new DeployEmail());
     }
 }
