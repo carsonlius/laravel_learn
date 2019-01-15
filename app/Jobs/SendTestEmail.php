@@ -33,7 +33,6 @@ class SendTestEmail implements ShouldQueue
      */
     public function handle()
     {
-        throw new \Exception('test Exception');
         Mail::to($this->email)
         ->send(new DeployEmail());
         $this->info('邮件成功发送!');
