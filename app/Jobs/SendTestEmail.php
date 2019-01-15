@@ -33,7 +33,9 @@ class SendTestEmail implements ShouldQueue
      */
     public function handle()
     {
+        throw new \Exception('对于laravel failed_job是自动填充的, 但是lumen不是');
         Mail::to($this->email)
         ->send(new DeployEmail());
+        $this->info('邮件成功发送!');
     }
 }
