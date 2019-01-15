@@ -35,6 +35,6 @@ class SendTestEmail implements ShouldQueue
     {
         Mail::to($this->email)
         ->send(new DeployEmail());
-        $this->info('邮件成功发送!');
+        dd('邮件成功发送!');
     }
 }
