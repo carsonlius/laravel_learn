@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Console\Commands\PostUpdateCommand;
+use App\Jobs\LogTimeJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('update-post:title liusen')->cron('* 5 * * *');
+        $schedule->command('update-post:title liusen')->cron('* 5 * * *')->withoutOverlapping();
+        $schedule->job(new LogTimeJob())->everyMinute()->withoutOverlapping();
     }
 
     /**
