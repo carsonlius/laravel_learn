@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('update-post:title liusen')->cron('* 5 * * *')->withoutOverlapping();
-        $schedule->job(new LogTimeJob())->everyMinute()->withoutOverlapping();
+//        $schedule->job(new LogTimeJob())->everyMinute()->withoutOverlapping();
     }
 
     /**

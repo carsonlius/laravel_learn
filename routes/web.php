@@ -53,7 +53,12 @@ Route::get('notification', function(){
     }
 });
 
-Route::get('mail', function(){
-   \App\Jobs\SendTestEmail::dispatch('sen.liu@yulore.com')
-       ->delay(now()->addMinute(1));
-})->middleware('auth');
+
+Route::get('test', function(){
+    $id = 1;
+    $user = \App\User::where(compact('id'))
+        ->with('projects')
+        ->get()
+        ->toArray();
+    dd($user);
+});
