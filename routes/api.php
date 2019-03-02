@@ -84,3 +84,21 @@ Route::middleware('auth:api')->post('/user', function (Request $request) {
 // Route::group(['middleware' => 'jwt.auth'], function(){
 //     Route::resource('lesson', 'LessonController');
 // });
+
+
+Route::get('test', function(){
+    $name= 'liusen';
+    $age= 22;
+    return response()->json(compact('name', 'age'));
+});
+
+
+Route::group(['prefix' => 'v1'], function(){
+    Route::patch('patch', function(){
+        return ['测试 request method is ' . request()->method() . ' and path is ' . request()->path()];
+    });
+
+    Route::delete('delete', function(){
+        return ['测试 request method is ' . request()->method() . ' and path is ' . request()->path()];
+    });
+});

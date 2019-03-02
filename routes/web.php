@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', function () {
+    \App\Article::trading()->get();
     return view('welcome');
 });
 
@@ -54,11 +55,36 @@ Route::get('notification', function(){
 });
 
 
-Route::get('test', function(){
-    $id = 1;
-    $user = \App\User::where(compact('id'))
-        ->with('projects')
-        ->get()
-        ->toArray();
-    dd($user);
+Route::get('test', function (){
+    $team = factory(App\Team::class)->create();
+    $user = factory(App\User::class)->create();
+    $user_two = factory(App\User::class)->create();
+    $team->add($user);
+    $team->add($user_two);
+    dump($team->toArray(), $team->members, $team->count());
+
+//    $team = \App\Team::find(87);
+//    dump($team->members->toArray(), count($team->members->toArray()), $team->members);
 });
+
+Route::get('test2', function(){
+    return 'test2 page';
+});
+
+Route::get('test3', function(){
+    return redirect('test2');
+});
+
+Route::post('test', function(){
+
+    return request()->post();
+//    return request()->header();
+//    return request()->query();
+//    return [file_get_contents('php://input')];
+//    return [request()->has(['what'])];
+//    return request()->all();
+//    return $_POST;
+});
+
+Route::resource('test_c', 'TestController');
+

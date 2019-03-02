@@ -53617,13 +53617,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {},
+    data: function data() {
+        return {
+            name: 'liusen'
+        };
+    },
     mounted: function mounted() {
-        console.log('Example Component!');
-        console.log(window.Laravel.user_id);
-        window.Echo.private('clear-posts.' + window.Laravel.user).listen('ClearUserUpdatedEvent', function (e) {
-            alert('现在进入了private渠道');
-            console.log('private', e);
+        console.log('Example Component begin ========');
+        var vm = this;
+        axios.get('https://learn7.carsonlius.vip/api/v1/test').then(function (response) {
+            console.log(response);
+            console.log('Example Component end! =========');
+            vm.name = response.data;
         });
     }
 });
@@ -53648,12 +53653,12 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
           _c("div", { staticClass: "panel panel-default" }, [
             _c("div", { staticClass: "panel-heading" }, [
-              _vm._v("Example Component222")
+              _vm._v("Example Component哈哈")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "panel-body" }, [
               _vm._v(
-                "\n                    I'm an example component222!\n                "
+                "\n                    ========================================= 11111 ===============================================\n                "
               )
             ])
           ])

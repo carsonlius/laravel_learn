@@ -229,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Stripe' => \App\Facade\Stripe::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

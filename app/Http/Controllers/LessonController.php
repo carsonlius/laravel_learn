@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Http\Repository\LessonRepository;
 use App\Lesson;
 use Illuminate\Http\Request;
@@ -33,6 +34,11 @@ class LessonController extends ApiController
         } catch (\Exception $e) {
             return $this->setStatus(1478)->responseError($e->getMessage());
         }
+    }
+
+    public function test()
+    {
+        return Article::trading()->get();
     }
 
     /**
